@@ -1,0 +1,1 @@
+require 'cancan_unit_test/action_controller/stub_registry'
