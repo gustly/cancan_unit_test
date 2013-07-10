@@ -5,7 +5,7 @@ describe PostsController do
   context "not stubbing" do
     it "uses can can" do
       post :create
-      assigns[:post].should be_a Post
+      assigns(:post).should be_a Post
     end
   end
 
@@ -18,7 +18,7 @@ describe PostsController do
 
     it "uses the stub" do
       post :create
-      assigns[:post].should == article
+      assigns(:post).should == article
     end
   end
 

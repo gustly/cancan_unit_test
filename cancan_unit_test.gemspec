@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cancan_unit_test/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "cancan_unit_test"
+  gem.name          = "cancan-unit-test"
   gem.version       = CancanUnitTest::VERSION
   gem.authors       = ["Todd Mohney, Rasheed Abdul-Aziz"]
   gem.email         = ["zephyr-dev@googlegroups.com"]

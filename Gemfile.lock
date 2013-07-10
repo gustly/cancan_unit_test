@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cancan_unit_test (0.0.1)
+    cancan-unit-test (0.0.1)
       activesupport
       cancan
 
@@ -119,7 +119,7 @@ PLATFORMS
 
 DEPENDENCIES
   cancan
-  cancan_unit_test!
+  cancan-unit-test!
   jquery-rails
   pry
   rails

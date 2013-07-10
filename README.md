@@ -1,6 +1,8 @@
+[![Build Status](https://travis-ci.org/gustly/cancan_unit_test.png?branch=master)](https://travis-ci.org/gustly/cancan_unit_test)
+
 # CancanUnitTest
 
-TODO: Write a gem description
+RSpec helpers to easily stub CanCan's load_and_authorize_resource methods for better controller unit testing
 
 ## Installation
 
@@ -18,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+stub_load_and_authorize_resource(:model_name, options_hash)
 
 ## Contributing
 
