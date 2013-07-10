@@ -1,14 +1,21 @@
-require 'spec_helper'
+def include_dummy_app
+  require File.expand_path("../../integration/fixtures/dummy/config/environment.rb",  __FILE__)
+  require 'rspec/rails'
+  require 'rspec/autorun'
+  require 'bundler'
+  require 'rails/test_help'
+end
+
+def include_dummy_app_post_dependencies
+  require 'spec_helper'
+  Dir[Rails.root.join("integration/support/**/*.rb")].each { |f| require f }
+end
+
 
 ENV["RAILS_ENV"] = "test"
 
-require File.expand_path("../../integration/fixtures/dummy/config/environment.rb",  __FILE__)
-require 'rspec/rails'
-require 'rspec/autorun'
-require 'bundler'
-require "rails/test_help"
-
-Dir[Rails.root.join("integration/support/**/*.rb")].each { |f| require f }
+include_dummy_app
+include_dummy_app_post_dependencies
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -24,4 +31,6 @@ RSpec.configure do |config|
   config.include RSpec::Rails::ControllerExampleGroup, :type => :controller, :example_group => {
     :file_path => config.escaped_path(%w[integration controllers])
   }
+
+  config.include CancanUnitTest::Mocks
 end

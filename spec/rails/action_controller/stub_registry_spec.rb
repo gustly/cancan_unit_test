@@ -24,6 +24,16 @@ module CancanUnitTest
       end
 
       describe "retrieving a stored stub definition" do
+        context "no stubs added" do
+          it "returns an empty array" do
+           test_controller._get_cancan_unit_test_stubs(:mango).should == []
+          end
+
+          it "does not raise an error" do
+           expect { test_controller._get_cancan_unit_test_stubs(:mango) }.not_to raise_error
+          end
+        end
+
         context "added one stub" do
           before do
             test_controller._add_cancan_unit_test_stub(:falaffel, model, options, &block)

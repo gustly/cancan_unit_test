@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
 
   # Expected by the gem when installed
   gem.add_dependency "cancan"
+  gem.add_dependency "activesupport"
 
   # expected for running the gem dev env
   gem.add_development_dependency "rake"

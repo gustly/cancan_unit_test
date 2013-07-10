@@ -22,11 +22,15 @@ module CancanUnitTest
 
       it "adds the stubbed resource to the controller" do
         controller.
-          should_receive(:_cancan_stubs_add).
-          with(:load_and_authorize_resource, :model, options, block)
+          should_receive(:_add_cancan_unit_test_stub).
+          with(:load_and_authorize_resource, :model, options, &block)
 
         rspec_test.
           stub_load_and_authorize_resource(:model, options, &block)
+      end
+
+      it "does not require options" do
+        expect { rspec_test.  stub_load_and_authorize_resource(:model, &block) }.to_not raise_error
       end
     end
 
