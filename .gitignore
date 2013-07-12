@@ -17,6 +17,7 @@ tmp
 integration/fixtures/dummy/log
 integration/fixtures/dummy/*.gem
 integration/fixtures/dummy/*.rbc
+integration/fixtures/dummy/db/*.sqlite3
 integration/fixtures/dummy/.bundle
 integration/fixtures/dummy/.config
 integration/fixtures/dummy/.yardoc

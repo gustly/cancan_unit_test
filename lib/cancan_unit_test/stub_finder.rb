@@ -5,22 +5,31 @@ module CancanUnitTest
       @stub_list = controller._get_cancan_unit_test_stubs(method)
     end
 
-    def find(model, options)
-      stub_list = filter_stub_list(model, options)
+    def find_by_singleton(model, options)
+      find_by_resource_type(model, :singleton, options)
+    end
 
-      return nil if stub_list.empty?
-
-      raise "Ambiguous match in CanCan:Mocks" if stub_list.count > 1
-
-      stub_list.first[:block]
+    def find_by_collection(model, options)
+      find_by_resource_type(model, :collection, options)
     end
 
     private
 
-    def filter_stub_list(model, options)
+    def find_by_resource_type(model, resource_type, options)
+      filtered_stub_list = filter_stub_list(model, resource_type, options)
+
+      return nil if filtered_stub_list.empty?
+
+      raise "Ambiguous match in CanCan:Mocks" if filtered_stub_list.count > 1
+
+      filtered_stub_list.first[:block]
+    end
+
+    def filter_stub_list(model, resource_type, options)
       stub_list.select do |stub|
-        stub[:model] == model &&
-          stub[:options] == options
+        stub[:resource_type] == resource_type &&
+          stub[:model] == model &&
+          stub[:options] == options 
       end
     end
 

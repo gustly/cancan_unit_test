@@ -2,13 +2,13 @@ module CancanUnitTest
   module ActionController
     module StubRegistry
 
-      def _add_cancan_unit_test_stub(method, model, options, &block)
-        method_list = cancan_unit_test_stubs[method] ||= []
-        method_list << { model: model, options: options, block: block }
+      def _add_cancan_unit_test_stub(method, resource_type, model, options, &block)
+        method_list = _get_cancan_unit_test_stubs(method)
+        method_list << { resource_type: resource_type, model: model, options: options, block: block }
       end
 
       def _get_cancan_unit_test_stubs(method)
-        cancan_unit_test_stubs[method] || []
+        cancan_unit_test_stubs[method] ||= []
       end
 
       private

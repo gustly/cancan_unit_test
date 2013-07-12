@@ -20,7 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-stub_load_and_authorize_resource(:model_name, options_hash)
+stub_load_and_authorize_singleton_resource(:model_name, options_hash)
+stub_load_and_authorize_collection_resource(:model_name, options_hash)
 
 ## Contributing
 
