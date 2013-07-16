@@ -28,18 +28,9 @@ describe PostsController do
       stub_load_and_authorize_singleton_resource(:post, instance_method: :i_am_not_right) { article }
     end
 
-    context "and warnings turned on", cancan_unit_test_warning: true do
-      it "warns that there was no stub found" do
-        STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :post'")
-        post :create
-      end
-    end
-
-    context "and warnings defaulting to off" do
-      it "warns that there was no stub found" do
-        STDOUT.should_not_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :post'")
-        post :create
-      end
+    it "warns that there was no stub found" do
+      STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :post'")
+      post :create
     end
   end
 end

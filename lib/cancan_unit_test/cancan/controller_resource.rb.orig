@@ -6,14 +6,6 @@ module CancanUnitTest
     module ControllerResource
       extend ::ActiveSupport::Concern
 
-      def self.show_warnings= value
-        @show_warnings = value
-      end
-
-      def self.show_warnings
-        @show_warnings ||= false
-      end
-
       def _shim_load_and_authorize_resource
         model_name = resource_class.model_name.underscore
 
@@ -26,15 +18,9 @@ module CancanUnitTest
           self.resource_instance = singleton_stub.call if singleton_stub
           self.collection_instance = collection_stub.call if collection_stub
         else
-          warn_about_missing_stub(model_name) if ControllerResource.show_warnings
+          puts("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :#{model_name}'")
           _original_load_and_authorize_resource
         end
-      end
-
-      private
-
-      def warn_about_missing_stub(model_name)
-        puts("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :#{model_name}'")
       end
 
       included do

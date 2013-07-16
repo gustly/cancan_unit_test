@@ -52,25 +52,11 @@ module CancanUnitTest
             expect { controller_resource.load_and_authorize_resource }.to raise_error "original called"
           end
 
-          context "when showing warning" do
-            it "does not warn that there was no stub found" do
-              ControllerResource.show_warnings = true
-              STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :the_model_name'")
-              begin
-                controller_resource.load_and_authorize_resource
-              rescue
-              end
-            end
-          end
-
-          context "when suppressing warning" do
-            it "warns that there was no stub found" do
-              ControllerResource.show_warnings = false
-              STDOUT.should_not_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :the_model_name'")
-              begin
-                controller_resource.load_and_authorize_resource
-              rescue
-              end
+          it "warns that there was no stub found" do
+            STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :the_model_name'")
+            begin
+              controller_resource.load_and_authorize_resource
+            rescue
             end
           end
         end
