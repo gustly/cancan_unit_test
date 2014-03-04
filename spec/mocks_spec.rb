@@ -47,6 +47,16 @@ module CancanUnitTest
           stub_load_and_authorize_collection_resource(:model, options, &block)
       end
     end
+
+    describe "#stub_load_singleton_resource" do
+      it "adds the stubbed singleton resource to the controller" do
+        controller.should_receive(:_add_cancan_unit_test_stub).
+          with(:load_resource, :singleton, :model, options, &block)
+
+        rspec_test.
+          stub_load_singleton_resource(:model, options, &block)
+      end
+    end
   end
 end
 

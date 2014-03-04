@@ -1,18 +1,26 @@
 pairs:
-  co: Cathy O'Connell; cathy
+  dmi: Devon Isakow; devon
   ck: Chien Kuo; ckuo
-  ra: Rasheed Abdul-Aziz; rabdulaziz
   rm: Ryan McGarvey; ryan
   mf: Michael Frederick; mike
   tm: Todd Mohney; todd
   my: Micah Young; myoung
   ba: Alex Babkin; ababkin
   rn: Ryan Nash; rnash
-  dmc: Dennis Cahillane; dcahillane
   jl: Joe Letizia; joe
   jlm: Joe Moore; joemoore
-  dc: Dan Connor; dconner
   lo: Lee Ourand; lourand
+  ps: Peter Swan; pdswan
+  mc: Michael Chinigo; mchinigo
+  int: interview; interview
+  dt: David Tengdin
+  jp: Joseph Pirtle
+  ao: Adekunle Oduye
+  kg: Kellye Greene
+  mc2: Micah Corn
+  ms: Matt Salerno
+  fb: Francesco Bertocci
+  co: Cathy O
 email:
   prefix: zephyr-eng
   domain: gust.com

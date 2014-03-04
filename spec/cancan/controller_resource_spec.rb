@@ -19,6 +19,10 @@ module CancanUnitTest
           raise "original called"
         end
 
+        def load_resource
+          raise "original called"
+        end
+
         def resource_class
           OpenStruct.new({ model_name: @model_name })
         end
@@ -102,6 +106,69 @@ module CancanUnitTest
           it "assigns the stub to collection_instance" do
             controller_resource.should_receive(:collection_instance=).with(block_result)
             controller_resource.load_and_authorize_resource
+          end
+        end
+      end
+
+      describe "#load_resource" do
+
+        let(:controller_resource) { TestControllerResource.new(model_name, options, controller) }
+        let(:model_name) { "TheModelName" }
+        let_double(:controller)
+        let_double(:options)
+
+        let_double(:block_result)
+        let(:block) { double(:block, call: block_result) }
+
+        let_double(:stub_finder)
+
+        before do
+          StubFinder.stub(:new).with(controller, :load_resource) { stub_finder }
+          stub_finder.stub(:find_by_singleton).with(:the_model_name, options) { singleton_results }
+        end
+
+        context "when a stub doesn't exist for the resource" do
+          let(:singleton_results) { nil }
+
+          it "calls through to the original method" do
+            expect { controller_resource.load_resource }.to raise_error "original called"
+          end
+
+          context "when showing warning" do
+            it "does not warn that there was no stub found" do
+              ControllerResource.show_warnings = true
+              STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_resource :the_model_name'")
+              begin
+                controller_resource.load_resource
+              rescue
+              end
+            end
+          end
+
+          context "when suppressing warning" do
+            it "warns that there was no stub found" do
+              ControllerResource.show_warnings = false
+              STDOUT.should_not_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_resource :the_model_name'")
+              begin
+                controller_resource.load_resource
+              rescue
+              end
+            end
+          end
+        end
+
+        context "when a singleton stub for the resource exists" do
+          let(:singleton_results) { block }
+          let(:collection_results) { nil }
+
+          it "calls the stub" do
+            block.should_receive(:call)
+            controller_resource.load_resource
+          end
+
+          it "assigns the stub to resource_instance" do
+            controller_resource.should_receive(:resource_instance=).with(block_result)
+            controller_resource.load_resource
           end
         end
       end
