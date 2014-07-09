@@ -6,6 +6,5 @@ class CommentsController < ApplicationController
   def index
     head :ok
   end
-
 end
 

@@ -30,7 +30,5 @@ describe CommentsController do
         assigns(:post_author).should == post_author
       end
     end
-
   end
-
 end
