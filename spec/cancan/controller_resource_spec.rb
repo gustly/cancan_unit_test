@@ -3,11 +3,10 @@ require 'spec_helper'
 module CancanUnitTest
   module CanCan
     describe ControllerResource do
-
       class TestControllerResource
-        def initialize(model_name, options, controller)
+        def initialize(name, options, controller)
           @options = options
-          @model_name = model_name
+          @name = name
           @controller = controller
         end
 
@@ -23,29 +22,27 @@ module CancanUnitTest
           raise "original called"
         end
 
-        def resource_class
-          OpenStruct.new({ model_name: @model_name })
-        end
+        attr_reader :name
 
         include CancanUnitTest::CanCan::ControllerResource
       end
 
+      let(:name) { :the_name }
+      let(:controller_resource) { TestControllerResource.new(name, options, controller) }
+
+      let_double(:controller)
+      let_double(:options)
+
+      let_double(:block_result)
+      let(:block) { double(:block, call: block_result) }
+
+      let_double(:stub_finder)
+
       describe "#load_and_authorize_resource" do
-
-        let(:controller_resource) { TestControllerResource.new(model_name, options, controller) }
-        let(:model_name) { "TheModelName" }
-        let_double(:controller)
-        let_double(:options)
-
-        let_double(:block_result)
-        let(:block) { double(:block, call: block_result) }
-
-        let_double(:stub_finder)
-
         before do
           StubFinder.stub(:new).with(controller, :load_and_authorize_resource) { stub_finder }
-          stub_finder.stub(:find_by_singleton).with(:the_model_name, options) { singleton_results }
-          stub_finder.stub(:find_by_collection).with(:the_model_name, options) { collection_results }
+          stub_finder.stub(:find_by_singleton).with(:the_name, options) { singleton_results }
+          stub_finder.stub(:find_by_collection).with(:the_name, options) { collection_results }
         end
 
         context "when a stub doesn't exist for the resource" do
@@ -59,7 +56,7 @@ module CancanUnitTest
           context "when showing warning" do
             it "does not warn that there was no stub found" do
               ControllerResource.show_warnings = true
-              STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :the_model_name'")
+              STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :the_name'")
               begin
                 controller_resource.load_and_authorize_resource
               rescue
@@ -70,7 +67,7 @@ module CancanUnitTest
           context "when suppressing warning" do
             it "warns that there was no stub found" do
               ControllerResource.show_warnings = false
-              STDOUT.should_not_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :the_model_name'")
+              STDOUT.should_not_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_and_authorize_resource :the_name'")
               begin
                 controller_resource.load_and_authorize_resource
               rescue
@@ -111,20 +108,9 @@ module CancanUnitTest
       end
 
       describe "#load_resource" do
-
-        let(:controller_resource) { TestControllerResource.new(model_name, options, controller) }
-        let(:model_name) { "TheModelName" }
-        let_double(:controller)
-        let_double(:options)
-
-        let_double(:block_result)
-        let(:block) { double(:block, call: block_result) }
-
-        let_double(:stub_finder)
-
         before do
           StubFinder.stub(:new).with(controller, :load_resource) { stub_finder }
-          stub_finder.stub(:find_by_singleton).with(:the_model_name, options) { singleton_results }
+          stub_finder.stub(:find_by_singleton).with(:the_name, options) { singleton_results }
         end
 
         context "when a stub doesn't exist for the resource" do
@@ -137,7 +123,7 @@ module CancanUnitTest
           context "when showing warning" do
             it "does not warn that there was no stub found" do
               ControllerResource.show_warnings = true
-              STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_resource :the_model_name'")
+              STDOUT.should_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_resource :the_name'")
               begin
                 controller_resource.load_resource
               rescue
@@ -148,7 +134,7 @@ module CancanUnitTest
           context "when suppressing warning" do
             it "warns that there was no stub found" do
               ControllerResource.show_warnings = false
-              STDOUT.should_not_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_resource :the_model_name'")
+              STDOUT.should_not_receive(:puts).with("\e[33mCancanUnitTest Warning:\e[0m no stub found for 'load_resource :the_name'")
               begin
                 controller_resource.load_resource
               rescue

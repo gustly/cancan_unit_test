@@ -15,43 +15,41 @@ module CancanUnitTest
       end
 
       def _shim_load_and_authorize_resource
-        model_name = resource_class.model_name.underscore
         method_name = :load_and_authorize_resource
 
         stub_finder = StubFinder.new(@controller, method_name)
 
-        singleton_stub = stub_finder.find_by_singleton(model_name.to_sym, @options)
-        collection_stub = stub_finder.find_by_collection(model_name.to_sym, @options)
+        singleton_stub = stub_finder.find_by_singleton(name.to_sym, @options)
+        collection_stub = stub_finder.find_by_collection(name.to_sym, @options)
 
         if (singleton_stub || collection_stub)
           self.resource_instance = singleton_stub.call if singleton_stub
           self.collection_instance = collection_stub.call if collection_stub
         else
-          warn_about_missing_stub(model_name, method_name) if ControllerResource.show_warnings
+          warn_about_missing_stub(name.to_sym, method_name) if ControllerResource.show_warnings
           _original_load_and_authorize_resource
         end
       end
 
       def _shim_load_resource
-        model_name = resource_class.model_name.underscore
         method_name = :load_resource
 
         stub_finder = StubFinder.new(@controller, method_name)
 
-        singleton_stub = stub_finder.find_by_singleton(model_name.to_sym, @options)
+        singleton_stub = stub_finder.find_by_singleton(name.to_sym, @options)
 
         if singleton_stub
           self.resource_instance = singleton_stub.call if singleton_stub
         else
-          warn_about_missing_stub(model_name, method_name) if ControllerResource.show_warnings
+          warn_about_missing_stub(name.to_sym, method_name) if ControllerResource.show_warnings
           _original_load_resource
         end
       end
 
       private
 
-      def warn_about_missing_stub(model_name, method)
-        puts("\e[33mCancanUnitTest Warning:\e[0m no stub found for '#{method} :#{model_name}'")
+      def warn_about_missing_stub(name, method)
+        puts("\e[33mCancanUnitTest Warning:\e[0m no stub found for '#{method} :#{name}'")
         ControllerResource.show_warnings = false
       end
 

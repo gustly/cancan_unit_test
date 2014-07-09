@@ -11,14 +11,14 @@ module CancanUnitTest
 
       subject(:test_controller) { TestController.new }
 
-      let(:model) { :some_model }
+      let(:resource) { :some_resource }
       let(:options) { double(:options) }
       let(:block) { ->{} }
 
       let(:expected_singleton_definition) do
         {
           resource_type: :singleton,
-          model: model,
+          resource: resource,
           options: options,
           block: block
         }
@@ -27,7 +27,7 @@ module CancanUnitTest
       let(:expected_collection_definition) do
         {
           resource_type: :collection,
-          model: model,
+          resource: resource,
           options: options,
           block: block
         }
@@ -45,26 +45,26 @@ module CancanUnitTest
 
         context "added one stub" do
           before do
-            test_controller._add_cancan_unit_test_stub(:falaffel, :singleton, model, options, &block)
+            test_controller._add_cancan_unit_test_stub(:falaffel, :singleton, resource, options, &block)
           end
 
           it "should be possible to find the stub with a matching key" do
             test_controller._get_cancan_unit_test_stubs(:falaffel).should == [expected_singleton_definition]
           end
 
-          context "adding another with the same model name" do
+          context "adding another with the same resource name" do
             let(:another_singleton_definition) do
               {
                 resource_type: :singleton,
-                model: model,
-                  options: options,
-                  block: block
+                resource: resource,
+                options: options,
+                block: block
               }
             end
 
             context "and the same resource type" do
               before do
-                test_controller._add_cancan_unit_test_stub(:falaffel, :singleton, model, options, &block)
+                test_controller._add_cancan_unit_test_stub(:falaffel, :singleton, resource, options, &block)
               end
 
               it "returns both stubs" do
@@ -76,7 +76,7 @@ module CancanUnitTest
 
             context "and a different resource type" do
               before do
-                test_controller._add_cancan_unit_test_stub(:falaffel, :collection, model, options, &block)
+                test_controller._add_cancan_unit_test_stub(:falaffel, :collection, resource, options, &block)
               end
 
               it "returns both stubs" do
@@ -87,20 +87,19 @@ module CancanUnitTest
             end
           end
 
-
-          context "adding another with a different model name" do
+          context "adding another with a different resource name" do
             let(:waffle_options) { { syrup: :maple } }
             let(:waffle_stub_definition) do
               {
                 resource_type: :singleton,
-                model: model,
+                resource: resource,
                 options: waffle_options,
                 block: block
               }
             end
 
             before do
-              test_controller._add_cancan_unit_test_stub(:waffle, :singleton, model, waffle_options, &block)
+              test_controller._add_cancan_unit_test_stub(:waffle, :singleton, resource, waffle_options, &block)
             end
 
             it "return the other definition" do
