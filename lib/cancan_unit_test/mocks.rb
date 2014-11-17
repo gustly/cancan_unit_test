@@ -13,6 +13,10 @@ module CancanUnitTest
       controller._add_cancan_unit_test_stub(:load_resource, :singleton, model, options, &block)
     end
 
+    def stub_authorize_singleton_resource(model, options={}, &block)
+      controller._add_cancan_unit_test_stub(:authorize!, :singleton, model, options, &block)
+    end
+
     RSpec.configure do |config|
       config.before(:each, cancan_unit_test_warning: true) do
         CancanUnitTest::CanCan::ControllerResource.show_warnings = true

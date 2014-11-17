@@ -1,26 +1,19 @@
 pairs:
-  dmi: Devon Isakow; devon
-  ck: Chien Kuo; ckuo
-  rm: Ryan McGarvey; ryan
-  mf: Michael Frederick; mike
-  tm: Todd Mohney; todd
-  my: Micah Young; myoung
   ba: Alex Babkin; ababkin
-  rn: Ryan Nash; rnash
-  jl: Joe Letizia; joe
-  jlm: Joe Moore; joemoore
-  lo: Lee Ourand; lourand
-  ps: Peter Swan; pdswan
-  mc: Michael Chinigo; mchinigo
+  ck: Chien Kuo; ckuo
+  dmi: Devon Isakow; devon
   int: interview; interview
-  dt: David Tengdin
+  jl: Joe Letizia; joe
   jp: Joseph Pirtle
-  ao: Adekunle Oduye
+  kb: Kara Bernert
   kg: Kellye Greene
-  mc2: Micah Corn
+  lo: Lee Ourand; lourand
+  mf: Michael Frederick; mike
   ms: Matt Salerno
-  fb: Francesco Bertocci
-  co: Cathy O
+  ps: Peter Swan; pdswan
+  rm: Ryan McGarvey; ryan
+  rn: Ryan Nash; rnash
+  tm: Todd Mohney; todd
 email:
   prefix: zephyr-eng
   domain: gust.com

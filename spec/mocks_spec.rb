@@ -57,6 +57,16 @@ module CancanUnitTest
           stub_load_singleton_resource(:model, options, &block)
       end
     end
+
+    describe "#stub_authorize!_singleton_resource" do
+      it "adds the stubbed singletone resource to the controller" do
+        controller.should_receive(:_add_cancan_unit_test_stub).
+          with(:authorize!, :singleton, :model, options, &block)
+
+        rspec_test.
+          stub_authorize_singleton_resource(:model, options, &block)
+      end
+    end
   end
 end
 
