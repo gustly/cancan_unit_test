@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   # Expected by the gem when installed
-  gem.add_dependency "cancan"
+  gem.add_dependency "cancancan"
   gem.add_dependency "activesupport"
 
   # expected for running the gem dev env
