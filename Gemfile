@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 # expected by the dummy app:
-gem "rails"
+gem "rails", '~> 4.2.5.2'
 gem "rspec-rails"
 gem "jquery-rails"
 gem "sqlite3"

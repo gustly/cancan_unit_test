@@ -21,11 +21,12 @@ Gem::Specification.new do |gem|
   gem.add_dependency "activesupport"
 
   # expected for running the gem dev env
-  gem.add_development_dependency "rake"
+  gem.add_development_dependency "rake", '~> 11.2.2'
   gem.add_development_dependency "pry"
-  gem.add_development_dependency "rspec"
-  gem.add_development_dependency "rspec-rails"
+  gem.add_development_dependency "rspec", '~> 3.1.0'
+  gem.add_development_dependency "json"
+  gem.add_development_dependency "rspec-rails", '~> 3.1.0'
   gem.add_development_dependency "sqlite3"
   gem.add_development_dependency "railties"
-  gem.add_development_dependency "rspec-mocks-extensions"
+  gem.add_development_dependency "rspec-mocks-extensions", '~> 0.0.1'
 end

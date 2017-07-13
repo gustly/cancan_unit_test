@@ -17,7 +17,7 @@ module CancanUnitTest
 
     let(:controller) { double(:controller).as_null_object }
     let(:options) { double(:options) }
-    let(:block) { -> {} }
+    let(:block) { Proc.new{} }
 
     describe "#stub_load_and_authorize_singleton_resource" do
 

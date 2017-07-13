@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'spec_integration_helper'
 
 describe PostsController do
   context "not stubbing" do

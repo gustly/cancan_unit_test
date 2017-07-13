@@ -1,8 +1,7 @@
 def include_dummy_app
+  require 'bundler'
   require File.expand_path("../../integration/fixtures/dummy/config/environment.rb",  __FILE__)
   require 'rspec/rails'
-  require 'rspec/autorun'
-  require 'bundler'
   require 'rails/test_help'
 end
 
@@ -26,11 +25,6 @@ RSpec.configure do |config|
 
   config.infer_base_class_for_anonymous_controllers = false
 
-  config.order = "random"
-
-  config.include RSpec::Rails::ControllerExampleGroup, :type => :controller, :example_group => {
-    :file_path => config.escaped_path(%w[integration controllers])
-  }
-
+  config.include RSpec::Rails::ControllerExampleGroup, type: :controller, file_path: %r{/controllers/}
   config.include CancanUnitTest::Mocks
 end
